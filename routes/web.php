@@ -19,8 +19,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'inquiry', 'as' => 'inquiry', 'middleware' => 'forceSsl'], function(){ // https
-    Route::get('/', 'InquiryController@index');
-    Route::post('login', 'InquiryController@login');
-    Route::get('login', 'InquiryController@login');
+Route::group(['middleware' => 'https'], function(){
+
+    //Login
+    Route::get('login', 'Auth\LoginController@showLoginForm');
+    Route::post('login', 'Auth\LoginController@login');
+    Route::get('logout', 'Auth\LoginController@logout');
+
+    //Passwords
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+
 });
