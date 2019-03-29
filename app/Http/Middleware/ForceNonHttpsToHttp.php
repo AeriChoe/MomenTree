@@ -19,7 +19,7 @@ class ForceNonHttpsToHttp
     {
         if(\Request::secure() &&
             !in_array('https', request()->route()->middleware()))
-            return \Redirect::to(\Request::getRequestUri(), 302, array(), false);
+            return \Redirect::to(\Request::getRequestUri(), 301, array(), false);
 
         return $next($request);
     }
