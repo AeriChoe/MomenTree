@@ -21,6 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'inquiry', 'as' => 'inquiry', 'middleware' => 'forceSsl'], function(){ // https
     Route::get('/', 'InquiryController@index');
-    Route::post('/store', 'InquiryController@store');
-    Route::get('/finish', 'InquiryController@finish');
+    Route::post('/login', 'InquiryController@login');
+    Route::get('/register', 'InquiryController@register');
 });
