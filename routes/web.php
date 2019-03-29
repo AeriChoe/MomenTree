@@ -18,17 +18,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['middleware' => 'https'], function(){
-
-    //Login
-    Route::post('login', 'Auth\LoginController@login');
-    Route::get('logout', 'Auth\LoginController@logout');
-
-    //Passwords
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
-    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
-
-});

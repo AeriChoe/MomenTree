@@ -3,22 +3,23 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class ForceHttps
+class HttpsProtocol
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next)
     {
-        if(!\Request::secure())
-            return \Redirect::secure(\Request::path());
+        if (!$request->secure() && env('APP_ENV') === 'production') {
+
+            return redirect()->secure($request->getRequestUri());
+
+        }
 
         return $next($request);
     }
