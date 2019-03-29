@@ -21,9 +21,8 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-     public function boot()
-     {
-         $is_production = env('APP_ENV') === 'production' ? true : false;
-         View::share('is_production',$is_production);
-     }
+    public function boot()
+    {
+        //
+    }
 }
