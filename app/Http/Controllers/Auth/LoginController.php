@@ -62,7 +62,7 @@ class LoginController extends Controller
         //login users
         Auth::login($user, true);
 
-        return redirect($this->redirectTo)
+        return redirect($this->redirectTo);
 
         // $user->token;
     }
