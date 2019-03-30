@@ -45,9 +45,9 @@ return [
     ],
 
     'github' => [
-      'client_id' => env('GITHUB_CLIENT_ID'),
-      'client_secret' => env('GITHUB_CLIENT_SECRET'),
-      'redirect' => env('GITHUB_CALLBACK'),
+      'client_id' => 'ef1b0d080a1cf3aed282',
+      'client_secret' => '236edfa62e5de43f51fdd0cd647a84b439827abe',
+      'redirect' => 'http://whisperaeriapp.herokuapp.com/login/github/callback',
 ],
 
 ];
