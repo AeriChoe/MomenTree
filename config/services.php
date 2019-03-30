@@ -48,6 +48,13 @@ return [
       'client_id' => 'ef1b0d080a1cf3aed282',
       'client_secret' => '236edfa62e5de43f51fdd0cd647a84b439827abe',
       'redirect' => 'https://whisperaeriapp.herokuapp.com/login/github/callback',
-],
+    ],
+
+    'facebook' => [
+        'client_id' => '418254348744661',
+        'client_secret' => 'bb8f4e15ca4b874d190f999356f620a0',
+        'redirect' => 'https://whisperaeriapp.herokuapp.com/login/facebook/callback',
+    ],
+
 
 ];
