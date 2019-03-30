@@ -18,7 +18,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/auth/signin', 'Auth\SocialLiteController@signin');
-Route::get('/auth/login', 'Auth\SocialLiteController@login');
-Route::get('/auth/callback', 'Auth\SocialLiteController@callback');
