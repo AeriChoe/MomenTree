@@ -47,7 +47,7 @@ return [
     'github' => [
     'client_id' => env('GITHUB_CLIENT_ID'),
     'client_secret' => env('GITHUB_CLIENT_SECRET'),
-    'redirect' => 'http://whisperaeriapp.herokuapp.com/login/github/callback',
+    'redirect' => 'whisperaeriapp.herokuapp.com/login/github/callback',
 ],
 
 ];
