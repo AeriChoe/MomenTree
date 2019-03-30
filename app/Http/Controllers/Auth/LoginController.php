@@ -58,7 +58,7 @@ class LoginController extends Controller
           'email' => $githubUser->getEmail(),
           'name' => $githubUser->getName(),
           'provider_id' => $githubUser->getId(),
-        ])
+        ]);
         //login users
         Auth::login($user, true);
 
