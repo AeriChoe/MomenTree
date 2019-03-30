@@ -47,7 +47,7 @@ return [
     'github' => [
       'client_id' => 'ef1b0d080a1cf3aed282',
       'client_secret' => '236edfa62e5de43f51fdd0cd647a84b439827abe',
-      'redirect' => 'http://whisperaeriapp.herokuapp.com/login/github/callback',
+      'redirect' => 'https://whisperaeriapp.herokuapp.com/login/github/callback',
 ],
 
 ];
