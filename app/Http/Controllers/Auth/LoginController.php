@@ -50,21 +50,23 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $githubUser = Socialite::driver('github')->user();
+      $user = Socialite::driver('github')->user();
 
-        //dd($githubUser)
+// OAuth Two Providers
+$token = $user->token;
+$refreshToken = $user->refreshToken; // not always provided
+$expiresIn = $user->expiresIn;
 
-        // add user to database
-        $user = User::create([
-          'email' => $githubUser->getEmail(),
-          'name' => $githubUser->getName(),
-          'provider_id' => $githubUser->getId(),
-        ]);
-        //login users
-        Auth::login($user, true);
+// OAuth One Providers
+$token = $user->token;
+$tokenSecret = $user->tokenSecret;
 
-        return redirect($this->redirectTo);
-
+// All Providers
+$user->getId();
+$user->getNickname();
+$user->getName();
+$user->getEmail();
+$user->getAvatar();
         // $user->token;
     }
 }
