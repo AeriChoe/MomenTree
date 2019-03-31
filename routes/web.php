@@ -24,3 +24,6 @@ Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback
 
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider2');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback2');
+
+Route::get('login/gg', 'Auth\LoginController@redirectToProvider3');
+Route::get('login/gg/callback', 'Auth\LoginController@handleProviderCallback3');

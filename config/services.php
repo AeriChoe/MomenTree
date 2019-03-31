@@ -56,5 +56,11 @@ return [
         'redirect' => 'https://whisperaeriapp.herokuapp.com/login/facebook/callback',
     ],
 
+    'google' => [
+        'client_id' => '58638391374-q96r2a74ddvj9cjen4loa0p3be13gbru.apps.googleusercontent.com',
+        'client_secret' => '9TdMxP2-MEBBrBmtIlg2qV_0',
+        'redirect' => 'https://whisperaeriapp.herokuapp.com/login/gg/callback',
+    ],
+
 
 ];

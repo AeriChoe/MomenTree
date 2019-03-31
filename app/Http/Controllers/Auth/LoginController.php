@@ -48,11 +48,14 @@ class LoginController extends Controller
     public function redirectToProvider()
     {
         return Socialite::driver('github')->redirect();
-        return Socialite::driver('facebook')->redirect();
     }
     public function redirectToProvider2()
     {
         return Socialite::driver('facebook')->redirect();
+    }
+    public function redirectToProvider3()
+    {
+        return Socialite::driver('gg')->redirect();
     }
 
 
@@ -94,6 +97,27 @@ class LoginController extends Controller
                 'email' => $facebookUser->getEmail(),
                 'name' => $facebookUser->getName(),
                 'provider_id' => $facebookUser->getId(),
+            ]);
+        }
+
+        // login the user
+        Auth::login($user, true);
+
+        return redirect($this->redirectTo);
+    }
+
+    public function handleProviderCallback3()
+    {
+        $ggUser = Socialite::driver('gg')->user();
+
+        $user = User::where('provider_id', $ggUser->getId())->first();
+
+        if (!$user) {
+            // add user to database
+            $user = User::create([
+                'email' => $ggUser->getEmail(),
+                'name' => $ggUser->getName(),
+                'provider_id' => $ggUser->getId(),
             ]);
         }
 
