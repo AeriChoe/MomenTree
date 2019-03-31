@@ -55,7 +55,7 @@ class LoginController extends Controller
     }
     public function redirectToProvider3()
     {
-        return Socialite::driver('gg')->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
 
