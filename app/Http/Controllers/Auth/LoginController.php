@@ -108,16 +108,16 @@ class LoginController extends Controller
 
     public function handleProviderCallback3()
     {
-        $ggUser = Socialite::driver('gg')->user();
+        $googleUser = Socialite::driver('google')->user();
 
-        $user = User::where('provider_id', $ggUser->getId())->first();
+        $user = User::where('provider_id', $googleUser->getId())->first();
 
         if (!$user) {
             // add user to database
             $user = User::create([
-                'email' => $ggUser->getEmail(),
-                'name' => $ggUser->getName(),
-                'provider_id' => $ggUser->getId(),
+                'email' => $googleUser->getEmail(),
+                'name' => $googleUser->getName(),
+                'provider_id' => $googleUser->getId(),
             ]);
         }
 
