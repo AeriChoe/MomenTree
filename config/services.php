@@ -62,5 +62,4 @@ return [
         'redirect' => 'https://whisperaeriapp.herokuapp.com/login/google/callback',
     ],
 
-
 ];
