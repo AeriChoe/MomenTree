@@ -1,26 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="width:1350px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                   <ul class="social">
+                   <p>Do you have Social Account?</p>
+                   <li class="gg"><a href="login/google" class="btn btn-block btn-social btn-google"><span class="fa fa-google"></span>Login with Google</a></li>
+                    <li class="fa"><a href="login/facebook" class="btn btn-block btn-social btn-facebook"><span class="fa fa-facebook"></span>Login with Facebook</a></li>
+                    <li class="git"><a href="login/github" class="btn btn-block btn-social btn-github"><span class="fa fa-github"></span>Login with Github</a></li>
+                    </ul>
+                    <form method="POST" action="{{ route('login') }}" class="main-log">
                         @csrf
-
+ 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
+                            
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                                 @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>
@@ -32,9 +38,9 @@
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                                 @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>
@@ -56,14 +62,11 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-                                <a href="login/github" class="btn btn-primary">login with github</a>
-                                <a href="login/facebook" class="btn btn-primary">login with facebook</a>
-                                <a href="login/google" class="btn btn-primary">login with google</a>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    {{ __('Forgot Your Password?') }}
+                                </a>
                                 @endif
                             </div>
                         </div>

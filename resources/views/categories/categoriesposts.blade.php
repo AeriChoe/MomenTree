@@ -16,7 +16,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    
+
     <!-- FontsAwesome Icon -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -25,7 +25,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fontawesome.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fontawesome.min.css') }}" rel="stylesheet">
-    
+
 </head>
 
 <body>
@@ -42,41 +42,21 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav mr-auto">
-                       @guest
-                       <li></li>
-                        @else
                         <li><a class="nav-link" href="{{ url('/home') }}">My page</a></li>
-                        @if(!empty($category))
                         <li><a class="nav-link" href="{{ url('/post') }}">Add Post</a></li>
-                        @else
-                        <li><a class="nav-link" href="{{ url('/nocate') }}">Add Post</a></li>
-                        @endif
-                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif
-                        @else
+
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                @if(empty($profile))
-                                <a class="dropdown-item" href="{{ url('/profile') }}">Add Profile</a>
-                                @else
-                                <a class="dropdown-item" href='{{ url("/editPro/{$profile->id}") }}'>Update Profile</a>
-                                @endif
+                                <?php $profile = Auth::user()->id; ?>
+                                <a class="dropdown-item" href='{{ url("/editPro/$profile") }}'>Update Profile</a>
                                 <a class="dropdown-item" href="{{ url('/category') }}">Category</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -88,14 +68,64 @@
                                 </form>
                             </div>
                         </li>
-                        @endguest
                     </ul>
                 </div>
             </div>
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+
+                        <div class="card">
+
+
+                            <div class="card-body">
+                                @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                                @endif
+                                <div class="panel-body">
+                                    <div class="col-md-8-post">
+                                        <ul class="view-category">
+                                            @if(count($categories) > 0)
+                                            @foreach($categories->all() as $category)
+                                            <li class="active"><a href='{{url("category/{$category->id}")}}'>{{$category->category}}</a></li>
+                                            @endforeach
+                                            @else
+                                            <p>No Category Found!</p>
+                                            @endif
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-md-8-post">
+                                        @if(count($posts) > 0)
+                                        @foreach($posts->all() as $post)
+                                        <cite>Posted on: {{date('M j, Y H:i', strtotime($post->updated_at))}}</cite>
+
+                                    </div>
+                                    <div class="col-md-8-post">
+
+                                        <img src="{{$post->post_image}}" alt="image">
+                                        <h3>Title: {{$post->post_title}}</h3>
+                                        <p>{{substr($post->post_body, 0, 150)}}</p>
+
+
+                                        @endforeach
+                                        @else
+                                        <p>No Post..</p>
+                                        @endif
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </body>

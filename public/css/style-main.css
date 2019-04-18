@@ -1,52 +1,212 @@
-<style > 
-html,
 body {
-    background-color: #fff;
-    color: #636b6f;
+    background-image: url(back.png);
+    background-repeat: no-repeat;
+    background-position: bottom left 6%;
+    background-attachment: fixed;
     font-family: 'Nunito', sans-serif;
-    font-weight: 200;
-    height: 100vh;
-    margin: 0;
+    height: 100%;
+    color: #636b6f;
+}
+.container {
+
+}
+.card {
+
+}
+.card-body {
+    width: 100%;
+}
+.form-group input {
+    border-color: #87CEEB;
+}
+a.navbar-brand {
+    font-size: 20px;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    font-size: 20px;
+}
+p {
+    font-size: 20px;
+}
+.hr {
+    border-color: gray;
+    width: 100%;
+    margin-bottom: 50px;
 }
 
-.full-height {
-    height: 100vh;
+/* login */
+.main-log {
+    float: right;
+    width: 50%;
+    margin-top: 40px;
+    border-left: 1px solid gray;
+}
+.social {
+    width: 50%;
+    overflow: hidden;
+    display: inline-block;
+}
+.social p {
+    margin-bottom: 20px;
+}
+.social li {
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    width: 90%;
+}
+.social li span {
+    margin-right: 20px;
+    padding-right: 15px;
+    border-right: 1px solid gray;
+}
+.social li.git {
+    background-color: #444;
+}
+.social li.fa {
+    background-color: #3B5998;
+}
+.social li.fa span {
+    padding-left: 20px;
+}
+.social li.gg {
+    background-color: #DD4B39;
+}
+.social li a {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+.social li:hover {
+    opacity: 0.8;
 }
 
-.flex-center {
-    align-items: center;
-    display: flex;
-    justify-content: center;
+/* register */
+.registerform input {
+    width: 320px;
 }
+.registerform button {
+    width: 320px;
+}
+/* Profile */
 
-.position-ref {
+
+/* Post */
+.avatar {
     position: relative;
+    display: block;
+    border-radius: 100%;
+    float: left;
+    margin: 30px 30px 50px 10px;
+    width: 30%;
 }
-
-.top-right {
-    position: absolute;
-    right: 10px;
-    top: 18px;
+.profile {
+    width: 100%;
+    overflow: hidden;
 }
-
-.content {
+.lead, .category {
+}
+.lead {
+    margin: 50px 30px 30px 0;
+}
+.lead li {
+    font-size: 22px;
+    list-style: none;
+}
+.lead li:first-child {
+    color: tomato;
+}
+.category {
+    font-size: 20px;
+}
+.category p {
+    color: tomato;
+}
+.category li {
+    color: black;
+    border: 1px solid gray;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.5);
+    border-radius: 5px;
+    margin-right: 5px;
+    padding: 0 10px;
+    float: left;
+}
+.category li:hover {
+    opacity: 0.7;
+}
+.col-md-8-post {
+    margin-bottom: 20px;
     text-align: center;
 }
-
-.title {
-    font-size: 84px;
+.col-md-8-post h3 {
+    text-align: left;
+    margin-left: 10%;
+    margin-top: 30px;
+}
+.col-md-8-post p {
+    text-align: left;
+    padding: 20px 0 20px 0;
+    font-size: 24px;
+    width: 80%;
+    margin-left: 10%;
+}
+.col-md-8-post img {
+    width: 80%;
+    position: relative;
+}
+cite {
+    font-size: 20px;
+    margin-right: 50%;
+}
+ul.nav-pills {
+     margin-left: 10%;
+}
+ul.nav-pills li {
+    margin: 0 10px 0 10px;
+}
+ul.nav-pills li a {
+    font-size: 22px;
+    color: firebrick;
+}
+ul.nav-pills li a:hover {
+    opacity: 0.5;
 }
 
-.links > a {
-    color: #636b6f;
-    padding: 0 25px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: .1rem;
-    text-decoration: none;
-    text-transform: uppercase;
+
+/* View */
+.view-category {
+    width: 100%;
+    position: absolute;
+    font-size: 20px;
+    top: 6px;
+    left: -1%;
+}
+.view-category li {
+    border: 1px solid gray; 
+    margin: 0 3px;
+    border-radius: 5px;
+    padding: 0 10px;
+    float: right;
+}
+ul.forview {
+    margin-left: 40px;
+}
+ul.forview li {
+    padding: 30px 0px 5px 30px;
+}
+ul.forview span {
+    text-align: center;
+    font-size: 26px;
+}
+ul.forview span:hover {
+    text-decoration: underline;
 }
 
-.m-b-md {
-    margin-bottom: 30px;
+/* Category Post */
+.active:target {
+    background-color: royalblue;
 }
