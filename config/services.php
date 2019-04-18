@@ -45,21 +45,21 @@ return [
     ],
 
     'github' => [
-      'client_id' => 'ef1b0d080a1cf3aed282',
-      'client_secret' => '236edfa62e5de43f51fdd0cd647a84b439827abe',
-      'redirect' => 'https://whisperaeriapp.herokuapp.com/login/github/callback',
+      'client_id' => 'a876539dc4a8b3451fb4',
+      'client_secret' => 'a54051d101f77ce01fd1c661a95827f855456696',
+      'redirect' => 'https://momentreeglobal.herokuapp.com/login/github/callback',
     ],
 
     'facebook' => [
         'client_id' => '418254348744661',
         'client_secret' => 'bb8f4e15ca4b874d190f999356f620a0',
-        'redirect' => 'https://whisperaeriapp.herokuapp.com/login/facebook/callback',
+        'redirect' => 'https://momentreeglobal.herokuapp.com/login/facebook/callback',
     ],
 
     'google' => [
-        'client_id' => '58638391374-q96r2a74ddvj9cjen4loa0p3be13gbru.apps.googleusercontent.com',
-        'client_secret' => '9TdMxP2-MEBBrBmtIlg2qV_0',
-        'redirect' => 'https://whisperaeriapp.herokuapp.com/login/google/callback',
+        'client_id' => '58638391374-63upad2oej1eonug4gt732onu9p314em.apps.googleusercontent.com',
+        'client_secret' => 'kijRwIz6pmq9sO01k5W_SBcG',
+        'redirect' => 'https://momentreeglobal.herokuapp.com/login/google/callback',
     ],
 
 ];
