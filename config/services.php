@@ -51,8 +51,8 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => '418254348744661',
-        'client_secret' => 'bb8f4e15ca4b874d190f999356f620a0',
+        'client_id' => '495583944312453',
+        'client_secret' => '4ca6e91628d27c72e70adbede3e570c2',
         'redirect' => 'https://momentreeglobal.herokuapp.com/login/facebook/callback',
     ],
 

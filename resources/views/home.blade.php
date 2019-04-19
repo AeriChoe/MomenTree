@@ -100,7 +100,7 @@
 
                             @endforeach
                             @else
-                            <p>No Post Available!</p>
+                            <p>No Post not yet!</p>
                             @endif
                             
                            

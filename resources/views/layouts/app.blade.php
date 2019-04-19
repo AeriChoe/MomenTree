@@ -46,7 +46,7 @@
                        <li></li>
                         @else
                         <li><a class="nav-link" href="{{ url('/home') }}">My page</a></li>
-                        @if(!empty($category))
+                        @if(!empty($profile))
                         <li><a class="nav-link" href="{{ url('/post') }}">Add Post</a></li>
                         @else
                         <li><a class="nav-link" href="{{ url('/nocate') }}">Add Post</a></li>
@@ -74,15 +74,21 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @if(empty($profile))
                                 <a class="dropdown-item" href="{{ url('/profile') }}">Add Profile</a>
+                                <a class="dropdown-item" href="{{ url('/nocate') }}">Category</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
                                 @else
                                 <a class="dropdown-item" href='{{ url("/editPro/{$profile->id}") }}'>Update Profile</a>
-                                @endif
+                                
                                 <a class="dropdown-item" href="{{ url('/category') }}">Category</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-
+                                @endif
+                                
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
