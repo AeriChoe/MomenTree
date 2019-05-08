@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @guest
-    <title>{{ config('app.name', 'MomeTree') }}</title>
+    <title>MomeTree</title>
     @else
     <title>Login &#64;{{ Auth::user()->name }}</title>
     @endguest
