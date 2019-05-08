@@ -60,7 +60,7 @@
                                 @if(!empty($profile))
                                 <li>{{ $profile->designation }}</li>
                                 @else
-                                <p>No Information</p>
+                                <a href="{{ url('/profile') }}">Add My Profile</a>
                                 @endif
                             </ul>
 
@@ -132,7 +132,7 @@
 
                             @endforeach
                             @else
-                            <p>No Post not yet!</p>
+                            <p>Please Add your post!</p>
                             @endif
 
 

@@ -60,7 +60,7 @@
                         @if(!empty($profile))
                         <li><a class="nav-link" href="{{ url('/post') }}"> Post <span class="fa fa-plus-square-o"></span></a></li>
                         @else
-                        <li><a class="nav-link" href="{{ url('/nocate') }}">Post <span class="fa fa-plus-square-o"></span></a></li>
+                        <li></li>
                         @endif
                         @endguest
                     </ul>
@@ -85,8 +85,6 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @if(empty($profile))
                                 <a class="dropdown-item" href="{{ url('/mypage') }}">My page</a>
-                                <a class="dropdown-item" href="{{ url('/profile') }}">Add Profile</a>
-                                <a class="dropdown-item" href="{{ url('/nocate') }}">Category</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}

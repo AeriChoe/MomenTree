@@ -60,7 +60,7 @@
                                 @if(!empty($profile))
                                 <li>{{ $profile->designation }}</li>
                                 @else
-                                <p>No Information</p>
+                                <a href="{{ url('/profile') }}">Add My Profile</a>
                                 @endif
                             </ul>
 
@@ -75,7 +75,7 @@
                             </ul>
                             @if(empty($category))
                             <ul class="category">
-                                <a href="{{ url('/category') }}">Add your Category</a>
+                                <a href="{{ url('/category') }}">Add My Category</a>
                             </ul>
                             @endif
                             @endif
@@ -131,7 +131,7 @@
 
                             @endforeach
                             @else
-                            <p>No Post not yet!</p>
+                            <span></span>
                             @endif
 
 
