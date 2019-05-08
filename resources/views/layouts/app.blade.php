@@ -79,7 +79,7 @@
                         @endif
                         @else
 
-                        <a class="nav-link" href="{{ url('/mypage') }}">My page</a>
+                        <a class="nav-link" href="{{ url('/mypage') }}">{{ Auth::user()->name }}</a>
                         <a class="nav-link">|</a>
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
