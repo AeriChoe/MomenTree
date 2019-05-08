@@ -9,7 +9,9 @@ use Auth;
 class CategoryController extends Controller
 {
     public function category() {
-        $categories = Category::all();
+        $user_id = Auth::user()->id;
+        $categories = Category::select(array('id', 'category'))->where('user_id', $user_id)->get();
+        
         return view('categories.category', ['categories' => $categories]);
       }
 

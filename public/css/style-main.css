@@ -16,6 +16,9 @@ body {
 .card-body {
     width: 100%;
 }
+.card-header {
+    font-size: 18px;
+}
 .form-group input {
     border-color: #87CEEB;
 }
@@ -28,6 +31,7 @@ li {
 a {
     text-decoration: none;
     font-size: 20px;
+    color: aquamarine;
 }
 p {
     font-size: 20px;
@@ -35,7 +39,7 @@ p {
 .hr {
     border-color: gray;
     width: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 /* login */
@@ -92,10 +96,25 @@ p {
 .registerform button {
     width: 320px;
 }
+
 /* Profile */
 
 
-/* Post */
+/* Home */
+.mainHeader {
+    width: 100%;
+    margin: 0 auto;
+}
+#searchForm {
+    overflow: hidden;
+    width: 80%;
+}
+.mainHeader p {
+    float: left;
+    margin: 5px 10px 5px 30px;
+    font-size: 24px;
+    color: tomato;
+}
 .avatar {
     position: relative;
     display: block;
@@ -103,6 +122,7 @@ p {
     float: left;
     margin: 30px 30px 50px 10px;
     width: 30%;
+    max-height: 300px;
 }
 .profile {
     width: 100%;
@@ -120,10 +140,13 @@ p {
 .lead li:first-child {
     color: tomato;
 }
-.category {
+.category,.category2 {
     font-size: 20px;
 }
 .category p {
+    color: tomato;
+}
+.category2 p {
     color: tomato;
 }
 .category li {
@@ -135,10 +158,21 @@ p {
     padding: 0 10px;
     float: left;
 }
+.category2 li {
+    color: black;
+    border: 1px solid gray;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.5);
+    border-radius: 5px;
+    margin-right: 5px;
+    padding: 0 10px;
+    float: left;
+}
+
 .category li:hover {
     opacity: 0.7;
 }
 .col-md-8-post {
+    overflow: hidden;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -158,9 +192,22 @@ p {
     width: 80%;
     position: relative;
 }
+.col-md-8-post img.postidimg {
+    float: left;
+    border: 2px solid firebrick;
+    padding: 5px;
+    border-radius: 100%;
+    margin: 0 35px 20px 10%;
+    width: 10%;
+    height: 100px;
+    
+}
 cite {
     font-size: 20px;
-    margin-right: 50%;
+    margin-top: 20px;
+    margin-left: 6px;
+    width: 100%;
+    text-align: left;
 }
 ul.nav-pills {
      margin-left: 10%;
@@ -205,7 +252,56 @@ ul.forview span {
 ul.forview span:hover {
     text-decoration: underline;
 }
-
+form.commentform {
+    width: 100%;
+    margin-top: 20px;
+}
+form.commentform textarea {
+    width: 85%;
+    border-radius: 5px;
+}
+form.commentform button {
+    width: 85%;
+    font-size: 22px;
+    border-radius: 5px;
+}
+#formShow {
+    display: none;
+}
+#formShow textarea {
+    border-color: gray;
+}
+button.commentbtn {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: #3490dc;
+}
+button.commentbtn:hover {
+    color: #1d68a7;
+}
+#formShow .commentsql {
+    width: 85%;
+    margin: 0 auto;
+    
+}
+#formShow .commentsql p {
+    border-bottom: 1px solid gray;
+    width: 100%;
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+}
+#formShow .commentsql p span {
+    font-size: 16px;
+    margin-left: 50%;
+}
+#formShow .commentsql p:first-child {
+    border: 0px;
+}
+p.csheader {
+    border-bottom: 0;
+}
 /* Category Post */
 .active:target {
     background-color: royalblue;

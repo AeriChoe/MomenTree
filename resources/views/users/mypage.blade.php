@@ -89,9 +89,9 @@
                             <?php $postuserid = $post->user_id; ?>
                             <hr class="hr">
                             @if($userid == $postuserid)
-                            <a href='{{ url("/mypage") }}'><img src="{{$post->profile_pic}}" alt="profile_img" class="postidimg"></a>
+                            <img src="{{$post->profile_pic}}" alt="#" class="postidimg">
                             <ul class="nav nav-pills">
-                                <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <a href='{{ url("/mypage") }}' style="color:darkorange; font-size: 22px;">{{$post->name}}</a></cite>
+                                <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <span style="color:darkorange; font-size: 22px;">{{$post->name}}</span></cite>
                                 <li role="presentation">
                                     <a href='{{ url("/view/{$post->id}") }}'>
                                         <span class="fa fa-eye"> View</span>
@@ -110,8 +110,7 @@
 
                             </ul>
                             @else
-                            <a href='{{ url("/user/{$post->user_id}") }}'>
-                                <img src="{{$post->profile_pic}}" alt="profile_img" class="postidimg"></a>
+                            <img src="{{$post->profile_pic}}" alt="#" class="postidimg">
                             <ul class="nav nav-pills">
                                 <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <a href='{{ url("/user/{$post->user_id}") }}' style="color:darkorange; font-size: 22px;">{{$post->name}}</a></cite>
                                 <li role="presentation">
@@ -125,7 +124,7 @@
                         </div>
                         <div class="col-md-8-post">
 
-                            <img src="{{$post->post_image}}" alt="post_image">
+                            <img src="{{$post->post_image}}" alt="image">
                             <h3>Title: {{$post->post_title}}</h3>
                             <p>{{substr($post->post_body, 0, 150)}}</p>
 

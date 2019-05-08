@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Post;
+use App\Comment;
 use App\Like;
 use App\Dislike;
 use App\Profile;
@@ -18,7 +19,8 @@ use Illuminate\Support\Facades\URL;
 class PostController extends Controller
 {
     public function post() {
-        $categories = Category::all();
+        $user_id = Auth::user()->id;
+        $categories = Category::select(array('id', 'category'))->where('user_id', $user_id)->get();
         return view('posts.post', ['categories' => $categories]);
     }
     
@@ -27,6 +29,7 @@ class PostController extends Controller
     }
     
     public function addPost(Request $request) {
+        $user_id = Auth::user()->id;
         $this->validate($request, [
             'post_title' => 'required',
             'post_body' => 'required',
@@ -34,7 +37,14 @@ class PostController extends Controller
             'post_image' => 'required',
         ]);
         
+        $proinfo = Profile::select(array('name', 'profile_pic'))->where('user_id', $user_id)->get();
+        foreach ($proinfo as $p) {
+            $proinfoname = $p->name;
+            $proinfopic = $p->profile_pic;
+        }       
         $posts = new Post;
+        $posts->name = $proinfoname;
+        $posts->profile_pic = $proinfopic;
         $posts->post_title = $request->input('post_title');
         $posts->user_id = Auth::user()->id;
         $posts->post_body = $request->input('post_body');
@@ -51,16 +61,26 @@ class PostController extends Controller
         $posts->save();
         return redirect('/home')->with('response', 'Post Published Successfully!');
     }
-    
+
+        
     public function view($post_id) {
+        $user_id = Auth::user()->id;
         $posts = Post::where('id', '=', $post_id)->get();
+        $postname = Post::select('name')->where('id', $post_id)->get();
         $likePost = Post::find($post_id);
         $likeCtr = Like::where(['post_id' => $likePost->id])->count();
         $dislikeCtr = Dislike::where(['post_id' => $likePost->id])->count();
         //return $likeCtr;
         //exit();
-        $categories = Category::all();
-        return view('posts.view', ['posts' => $posts, 'categories' => $categories, 'likeCtr' => $likeCtr, 'dislikeCtr' => $dislikeCtr]);
+        $categories = Category::select(array('id', 'category'))->where('user_id', $user_id)->get();
+        $comments = DB::table('users')
+            ->join('comments', 'users.id', '=', 'comments.user_id')
+            ->join('posts', 'comments.post_id', '=', 'posts.id')
+            ->select('users.name', 'comments.*')
+            ->where(['posts.id' => $post_id])
+            ->get();
+        
+        return view('posts.view', ['posts' => $posts, 'postname' => $postname, 'categories' => $categories, 'likeCtr' => $likeCtr, 'dislikeCtr' => $dislikeCtr, 'comments' => $comments]);
     }
     
     public function edit($post_id) {
@@ -113,7 +133,8 @@ class PostController extends Controller
     }
     
     public function category($cat_id) {
-        $categories = Category::all();
+        $user_id = Auth::user()->id;
+        $categories = Category::select(array('id', 'category'))->where('user_id', $user_id)->get();
         $posts = DB::table('posts')
             ->join('categories', 'posts.category_id', '=', 'categories.id')
             ->select('posts.*', 'categories.*')
@@ -156,6 +177,27 @@ class PostController extends Controller
         } else {
             return redirect("/view/{$id}");
         }
+    }
+    
+    public function comment(Request $request, $post_id) {
+        $this->validate($request, [
+            'comment' => 'required'
+        ]);
+        $comment = new Comment;
+        $comment->user_id = Auth::user()->id;
+        $comment->post_id = $post_id;
+        $comment->comment = $request->input('comment');
+        $comment->save();
+        return redirect("/view/{$post_id}")->with('response', 'Comment Add Successfully!');;
+    }
+    
+    public function search(Request $request) {
+        $user_id = Auth::user()->id;
+        $profile = Profile::find($user_id);
+        $keyword = $request->input('search');
+        $posts = Post::where('post_title', 'LIKE', '%'.$keyword.'%')->get();
+        $categories = Category::select('category')->where('user_id', $user_id)->get();
+        return view('posts.searchposts', ['profile'=>$profile, 'posts' => $posts, 'categories' => $categories, 'keyword' => $keyword]);
     }
 }
 

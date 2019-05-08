@@ -4,14 +4,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
+    
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    @guest
     <title>{{ config('app.name', 'MomeTree') }}</title>
-
+    @else
+    <title>Login &#64;{{ Auth::user()->name }}</title>
+    @endguest
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -32,9 +36,17 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
+               @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
                     MomenTree
+                    <img src="{{ asset('images/favicon.ico') }}" alt="momentree-favicon">
                 </a>
+                @else
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    MomenTree
+                    <img src="{{ asset('images/favicon.ico') }}" alt="momentree-favicon">
+                </a>
+                @endguest
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -45,11 +57,10 @@
                        @guest
                        <li></li>
                         @else
-                        <li><a class="nav-link" href="{{ url('/home') }}">My page</a></li>
                         @if(!empty($profile))
-                        <li><a class="nav-link" href="{{ url('/post') }}">Add Post</a></li>
+                        <li><a class="nav-link" href="{{ url('/post') }}"> Post <span class="fa fa-plus-square-o"></span></a></li>
                         @else
-                        <li><a class="nav-link" href="{{ url('/nocate') }}">Add Post</a></li>
+                        <li><a class="nav-link" href="{{ url('/nocate') }}">Post <span class="fa fa-plus-square-o"></span></a></li>
                         @endif
                         @endguest
                     </ul>
@@ -73,6 +84,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @if(empty($profile))
+                                <a class="dropdown-item" href="{{ url('/mypage') }}">My page</a>
                                 <a class="dropdown-item" href="{{ url('/profile') }}">Add Profile</a>
                                 <a class="dropdown-item" href="{{ url('/nocate') }}">Category</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -80,8 +92,7 @@
                                     {{ __('Logout') }}
                                 </a>
                                 @else
-                                <a class="dropdown-item" href='{{ url("/editPro/{$profile->id}") }}'>Update Profile</a>
-                                
+                                <a class="dropdown-item" href="{{ url('/mypage') }}">My page</a>                         
                                 <a class="dropdown-item" href="{{ url('/category') }}">Category</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

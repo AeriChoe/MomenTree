@@ -19,20 +19,9 @@
             @endif
             <div class="card">
                 <div class="card-header">
-                    <div class="col-md-8 mainHeader">
-                        <p class="fa fa-search"></p>
-                        <form method="POST" action="{{ url('/search') }}" id="searchForm">
-                            @csrf
-                            <div class="input-group">
-                                <input type="text" name="search" class="form-control" placeholder="Search for...">
-
-                                <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-default">
-                                        Go!
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
+                    <div class="col-md-8 searchHeader">
+                        <p style="margin:0px; font-size:20px;">Search Keyword : <a href="#" style="font-size:24px;">{{$keyword}}</a></p>
+                        
                     </div>
                 </div>
 
@@ -43,53 +32,15 @@
                     </div>
                     @endif
                     <div class="panel-body">
-                        <div class="profile">
-                            @if(!empty($profile))
-                            <img class="avatar" src="{{ $profile->profile_pic }}" alt="Profile_picture" />
-                            @else
-                            <img class="avatar" src="{{ asset('images/avatar.png') }}" alt="avatar" />
-                            @endif
-                            <ul class="lead">
-                               <?php $uppro = Auth::user()->id; ?>
-                                @if(!empty($profile))
-                                <li>{{ $profile->name }} <a href='{{ url("/editPro/$uppro") }}'><span class="fa fa-pencil-square-o" style="color:firebrick; font-size:24px; margin-left:5px;"></span></a></li>
-                                @else
-                                <p></p>
-                                @endif
-                                <br>
-                                @if(!empty($profile))
-                                <li>{{ $profile->designation }}</li>
-                                @else
-                                <p>No Information</p>
-                                @endif
-                            </ul>
-
-                            @if(!empty($profile))
-                            <ul class="category">
-                                <p>{{ $profile->name }}'s Category</p>
-                                @foreach($categories as $category)
-                                <a href="/category">
-                                    <li>#{{$category->category}}</li>
-                                </a>
-                                @endforeach
-                            </ul>
-                            @if(empty($category))
-                            <ul class="category">
-                                <a href="{{ url('/category') }}">Add your Category</a>
-                            </ul>
-                            @endif
-                            @endif
-                        </div>
-
                         <div class="col-md-8-post">
+                           
                             @if(count($posts) > 0)
 
                             <?php $userid = Auth::user()->id; ?>
                             @foreach($posts->all() as $post)
                             <?php $postuserid = $post->user_id; ?>
-                            <hr class="hr">
                             @if($userid == $postuserid)
-                            <a href='{{ url("/mypage") }}'><img src="{{$post->profile_pic}}" alt="profile_img" class="postidimg"></a>
+                            <img src="{{$post->profile_pic}}" alt="" class="postidimg">
                             <ul class="nav nav-pills">
                                 <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <a href='{{ url("/mypage") }}' style="color:darkorange; font-size: 22px;">{{$post->name}}</a></cite>
                                 <li role="presentation">
@@ -110,8 +61,7 @@
 
                             </ul>
                             @else
-                            <a href='{{ url("/user/{$post->user_id}") }}'>
-                                <img src="{{$post->profile_pic}}" alt="profile_img" class="postidimg"></a>
+                            <img src="{{$post->profile_pic}}" alt="#" class="postidimg">
                             <ul class="nav nav-pills">
                                 <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <a href='{{ url("/user/{$post->user_id}") }}' style="color:darkorange; font-size: 22px;">{{$post->name}}</a></cite>
                                 <li role="presentation">
@@ -125,11 +75,11 @@
                         </div>
                         <div class="col-md-8-post">
 
-                            <img src="{{$post->post_image}}" alt="post_image">
+                            <img src="{{$post->post_image}}" alt="image">
                             <h3>Title: {{$post->post_title}}</h3>
                             <p>{{substr($post->post_body, 0, 150)}}</p>
 
-
+                            <hr class="hr">
                             @endforeach
                             @else
                             <p>No Post not yet!</p>
