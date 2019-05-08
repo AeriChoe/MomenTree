@@ -66,7 +66,7 @@
 
                             @if(!empty($profile))
                             <ul class="category">
-                                <p>{{ $profile->name }}'s Category</p>
+                                <p>{{ $profile->name }}'s Category <a href="{{ url('/category') }}"><span class="fa fa-pencil-square-o" style="color:firebrick; font-size:24px; margin-left:5px;"></span></a></p>
                                 @foreach($categories as $category)
                                 <a href="/category">
                                     <li>#{{$category->category}}</li>

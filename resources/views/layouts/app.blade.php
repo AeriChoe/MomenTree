@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
-    
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @guest
@@ -20,7 +20,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    
+
     <!-- FontsAwesome Icon -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -29,14 +29,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fontawesome.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fontawesome.min.css') }}" rel="stylesheet">
-    
+
 </head>
 
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-               @guest
+                @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
                     MomenTree
                     <img src="{{ asset('images/favicon.ico') }}" alt="momentree-favicon">
@@ -54,8 +54,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav mr-auto">
-                       @guest
-                       <li></li>
+                        @guest
+                        <li></li>
                         @else
                         @if(!empty($profile))
                         <li><a class="nav-link" href="{{ url('/post') }}"> Post <span class="fa fa-plus-square-o"></span></a></li>
@@ -78,31 +78,19 @@
                         </li>
                         @endif
                         @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                @if(empty($profile))
-                                <a class="dropdown-item" href="{{ url('/mypage') }}">My page</a>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+
+                        <a class="nav-link" href="{{ url('/mypage') }}">My page</a>
+                        <a class="nav-link">|</a>
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-                                @else
-                                <a class="dropdown-item" href="{{ url('/mypage') }}">My page</a>                         
-                                <a class="dropdown-item" href="{{ url('/category') }}">Category</a>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-                                @endif
-                                
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
+                            {{ __('Logout') }}
+                        </a>
+                        
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+
+
                         @endguest
                     </ul>
                 </div>
