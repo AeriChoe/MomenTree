@@ -56,9 +56,9 @@
                                 @else
                                 <p></p>
                                 @endif
-                                <br>
+                                
                                 @if(!empty($profile))
-                                <li>{{ $profile->designation }}</li>
+                                <li style="margin-top:10px;">{{ $profile->designation }}</li>
                                 @else
                                 <a href="{{ url('/profile') }}">Add My Profile</a>
                                 @endif
@@ -80,14 +80,14 @@
                             @endif
                             @endif
                         </div>
-
                         <div class="col-md-8-post">
                             @if(count($posts) > 0)
-
+                    
                             <?php $userid = Auth::user()->id; ?>
                             @foreach($posts->all() as $post)
-                            <?php $postuserid = $post->user_id; ?>
                             <hr class="hr">
+                            <?php $postuserid = $post->user_id; ?>
+        
                             @if($userid == $postuserid)
                             <a href='{{ url("/mypage") }}'><img src="{{$post->profile_pic}}" alt="profile_img" class="postidimg"></a>
                             <ul class="nav nav-pills">
@@ -124,12 +124,13 @@
                             @endif
                         </div>
                         <div class="col-md-8-post">
-
+                            
                             <img src="{{$post->post_image}}" alt="post_image">
                             <h3>Title: {{$post->post_title}}</h3>
                             <p>{{substr($post->post_body, 0, 150)}}</p>
 
-
+                            <hr class="fakehr">
+                            <hr class="fakehr">
                             @endforeach
                             @else
                             <p>Please Add your post!</p>

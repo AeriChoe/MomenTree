@@ -18,13 +18,17 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/user/{id}', 'HomeController@user')->middleware('auth');
 Route::get('/mypage', 'HomeController@mypage')->middleware('auth');
+Route::get('/follow/{id}', 'HomeController@follow')->middleware('auth');
+Route::get('/unfollowcheck', 'HomeController@uncheck')->middleware('auth');
+Route::get('/unfollow/{id}', 'HomeController@unfollow')->middleware('auth');
 
 Route::post('/search', 'PostController@search')->middleware('auth');
 Route::get('/post', 'PostController@post')->middleware('auth');
-Route::get('/nocate', 'PostController@nocate');
+Route::get('/nocate', 'PostController@nocate')->middleware('auth');
 Route::get('/profile', 'ProfileController@profile')->middleware('auth');
 Route::get('/category', 'CategoryController@category')->middleware('auth');
 Route::post('/addCategory', 'CategoryController@addcategory');
@@ -40,8 +44,8 @@ Route::get('/edit/{id}', 'PostController@edit')->middleware('auth');
 Route::post('/editPost/{id}', 'PostController@editPost')->middleware('auth');
 Route::get('/delete/{id}', 'PostController@deletePost')->middleware('auth');
 Route::get('/category/{id}', 'PostController@category');
-Route::get('/like/{id}', 'HomeController@like')->middleware('auth');
-Route::get('/dislike/{id}', 'HomeController@dislike')->middleware('auth');
+Route::get('/like/{id}', 'PostController@like')->middleware('auth');
+Route::get('/dislike/{id}', 'PostController@dislike')->middleware('auth');
 Route::post('/comment/{id}', 'PostController@comment')->middleware('auth');
 
 Route::get('login/github', 'Auth\LoginController@redirectToProvider');

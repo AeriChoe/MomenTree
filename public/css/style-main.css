@@ -38,8 +38,11 @@ p {
 }
 .hr {
     border-color: gray;
-    width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.fakehr {
+    border-color: white;
 }
 
 /* login */
@@ -120,7 +123,7 @@ p {
     display: block;
     border-radius: 100%;
     float: left;
-    margin: 30px 30px 50px 10px;
+    margin: 30px 40px 50px 20px;
     width: 30%;
     max-height: 300px;
 }
@@ -130,11 +133,13 @@ p {
 }
 .lead, .category {
 }
+.category {
+}
 .lead {
     margin: 50px 30px 30px 0;
 }
 .lead li {
-    font-size: 22px;
+    font-size: 24px;
     list-style: none;
 }
 .lead li:first-child {
@@ -288,13 +293,14 @@ button.commentbtn:hover {
 #formShow .commentsql p {
     border-bottom: 1px solid gray;
     width: 100%;
-    font-size: 24px;
+    font-size: 18px;
     padding: 0;
     margin: 0;
 }
 #formShow .commentsql p span {
     font-size: 16px;
-    margin-left: 50%;
+    color: lightyellow;
+    margin-left: 44%;
 }
 #formShow .commentsql p:first-child {
     border: 0px;
@@ -302,7 +308,104 @@ button.commentbtn:hover {
 p.csheader {
     border-bottom: 0;
 }
+
 /* Category Post */
 .active:target {
     background-color: royalblue;
+}
+
+/* User page */
+.user_info {
+    margin-bottom: 15px;
+    padding: 0;
+    overflow: hidden;
+}
+.user_info li {
+    display: inline-block;
+    float: left;
+    color: #111;
+    font-size: 22px;
+    padding-right: 20px;
+}
+.user_info li a {
+    color: #111;
+}
+.user_info li a:hover {
+    text-decoration: none;
+}
+.user_info .spect {
+    font-size: 22px;
+    font-weight: bold;
+}
+.follow-btn {
+    border: 0;
+    height: 35px;
+    border-radius: 5px;
+    width: 110px;
+    margin: 0 2px 5px 15px;
+    background-color: tomato;
+
+}
+.follow-btn:hover {
+    cursor: pointer;
+}
+.follow-btn a {
+    font-size: 22px;
+    color: white;
+}
+.follow-btn a:hover {
+    color: white;
+    text-decoration: none;
+}
+.follow-btn2 {
+    border-color: tomato;
+    height: 40px;
+    border-radius: 5px;
+    width: 120px;
+    margin: 0 2px 5px 15px;
+    background-color: white;
+    color: white;
+
+}
+.follow-btn2:hover {
+    cursor: pointer;
+    background-color: tomato;
+}
+.follow-btn2 a {
+    font-size: 21px;
+    color: tomato;
+}
+.follow-btn2 a:hover {
+    color: white;
+    text-decoration: none;
+}
+.user_post {
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+}
+.user_post_one {
+    text-align: center;
+    float: left;
+    margin: 0 5px;
+    width: 32%;
+}
+.user_post_one img {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    max-height: 300px;
+}
+.user_post_one img:hover {
+    opacity: 0.8;    
+}
+.user_post img:hover .text-hover {
+    display: block;
+}
+.user_post_one h2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 10px;
+    
 }

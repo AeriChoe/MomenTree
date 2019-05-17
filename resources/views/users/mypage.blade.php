@@ -19,12 +19,13 @@
             @endif
             <div class="card">
                 <div class="card-header">
+
                     <div class="col-md-8 mainHeader">
                         <p class="fa fa-search"></p>
                         <form method="POST" action="{{ url('/search') }}" id="searchForm">
                             @csrf
                             <div class="input-group">
-                                <input type="text" name="search" class="form-control" placeholder="Search for...">
+                                <input type="text" name="search" class="form-control" placeholder="Search for..." required>
 
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-default">
@@ -50,15 +51,20 @@
                             <img class="avatar" src="{{ asset('images/avatar.png') }}" alt="avatar" />
                             @endif
                             <ul class="lead">
-                               <?php $uppro = Auth::user()->id; ?>
+                                <?php $uppro = Auth::user()->id; ?>
                                 @if(!empty($profile))
                                 <li>{{ $profile->name }} <a href='{{ url("/editPro/$uppro") }}'><span class="fa fa-pencil-square-o" style="color:firebrick; font-size:24px; margin-left:5px;"></span></a></li>
+                                <ul class="user_info">
+                                    <li><a href=""><span class="spect">{{$post_count}}</span> post</a></li>
+                                    <li><a href=""><span class="spect">{{$followct}}</span> follower</a></li>
+                                    <li><a href=""><span class="spect">{{$followingct}}</span> following</a></li>
+                                </ul>
                                 @else
                                 <p></p>
                                 @endif
                                 <br>
                                 @if(!empty($profile))
-                                <li>{{ $profile->designation }}</li>
+                                <li style="margin-top:-20px;">{{ $profile->designation }}</li>
                                 @else
                                 <a href="{{ url('/profile') }}">Add My Profile</a>
                                 @endif
@@ -83,12 +89,7 @@
 
                         <div class="col-md-8-post">
                             @if(count($posts) > 0)
-
-                            <?php $userid = Auth::user()->id; ?>
                             @foreach($posts->all() as $post)
-                            <?php $postuserid = $post->user_id; ?>
-                            <hr class="hr">
-                            @if($userid == $postuserid)
                             <img src="{{$post->profile_pic}}" alt="#" class="postidimg">
                             <ul class="nav nav-pills">
                                 <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <span style="color:darkorange; font-size: 22px;">{{$post->name}}</span></cite>
@@ -109,18 +110,6 @@
                                 </li>
 
                             </ul>
-                            @else
-                            <img src="{{$post->profile_pic}}" alt="#" class="postidimg">
-                            <ul class="nav nav-pills">
-                                <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <a href='{{ url("/user/{$post->user_id}") }}' style="color:darkorange; font-size: 22px;">{{$post->name}}</a></cite>
-                                <li role="presentation">
-                                    <a href='{{ url("/view/{$post->id}") }}'>
-                                        <span class="fa fa-heart"> View this Post</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            @endif
                         </div>
                         <div class="col-md-8-post">
 
