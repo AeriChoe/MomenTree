@@ -86,10 +86,10 @@
                             @endif
                             @endif
                         </div>
-                        <hr class="hr">
                         <div class="col-md-8-post">
                             @if(count($posts) > 0)
                             @foreach($posts->all() as $post)
+                            <hr class="hr">
                             <img src="{{$post->profile_pic}}" alt="#" class="postidimg">
                             <ul class="nav nav-pills">
                                 <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <span style="color:darkorange; font-size: 22px;">{{$post->name}}</span></cite>
