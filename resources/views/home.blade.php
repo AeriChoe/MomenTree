@@ -127,7 +127,7 @@
                             
                             <img src="{{$post->post_image}}" alt="post_image">
                             <h3>Title: {{$post->post_title}}</h3>
-                            <p>{{substr($post->post_body, 0, 150)}}</p>
+                            <p>{{substr($post->post_body, 0, 150)}}..</p>
 
                             <hr class="fakehr">
                             <hr class="fakehr">

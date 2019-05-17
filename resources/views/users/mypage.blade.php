@@ -86,7 +86,7 @@
                             @endif
                             @endif
                         </div>
-
+                        <hr class="hr">
                         <div class="col-md-8-post">
                             @if(count($posts) > 0)
                             @foreach($posts->all() as $post)
