@@ -23,13 +23,22 @@
                 @foreach($posts->all() as $post)
                 <?php $postid = $post->user_id; ?>
                 @if(Auth::user()->id == $postid)
-                <div class="card-header">My Post</div>
+                <div class="card-header">My Post
+                @foreach($showcate as $sc)
+                <p class="postcate">Category : {{$sc->category}}</p>
+                </div>
+                @endforeach
                 @else
-                <div class="card-header"><a href='{{ url("/user/{$post->user_id}") }}' style="color:darkorange">{{$post->name}}</a>'s Post</div>
+                <div class="card-header">
+                <a href='{{ url("/user/{$post->user_id}") }}' style="color:darkorange">{{$post->name}}</a>'s Post
+                @foreach($showcate as $sc)
+                <p class="postcate">Category : {{$sc->category}}</p>
+                @endforeach
+                </div>
                 @endif
                 @endforeach
                 @endif
-
+                
                 <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -38,10 +47,12 @@
                     @endif
                     <div class="panel-body">
 
-                        <div class="col-md-8-post">
+                        <div class="col-md-8-post viewpost">
                             @if(count($posts) > 0)
                             @foreach($posts->all() as $post)
+                            
                             <img src="{{$post->post_image}}" alt="image">
+                            <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}}</cite>
                             <h3>Title : {{$post->post_title}}</h3>
                             <p>{{$post->post_body }}</p>
                         </div>
@@ -49,17 +60,17 @@
                             <ul class="nav forview">
                                 <li role="presentation">
                                     <a href='{{ url("/like/{$post->id}") }}'>
-                                        <span class="fa fa-thumbs-up"> Like ({{$likeCtr}})</span>
+                                        <span class="far fa-thumbs-up"> Like ({{$likeCtr}})</span>
                                     </a>
                                 </li>
                                 <li role="presentation">
                                     <a href='{{ url("/dislike/{$post->id}") }}'>
-                                        <span class="fa fa-thumbs-down"> Dislike ({{$dislikeCtr}})</span>
+                                        <span class="far fa-thumbs-down"> Dislike ({{$dislikeCtr}})</span>
                                     </a>
                                 </li>
                                 <li role="presentation">
                                     <button class="commentbtn">
-                                        <span class="fa fa-comment-o"> Comment</span>
+                                        <span class="far fa-comment-alt"> Comment({{$commeCtr}})</span>
                                     </button>
                                 </li>
 
@@ -79,11 +90,16 @@
                                         {{ __('Post Comment') }}
                                     </button>
                                 </div>
+
                                 <div class="commentsql">
                                     @if(count($comments) > 0)
                                     <p>Comments</p>
                                     @foreach($comments->all() as $comment)
-                                    <p><a href="#">{{$comment->name}}</a> : {{$comment->comment}} <span>comment at {{$comment->updated_at}}</span></p>
+                                    @if(Auth::user()->id == $comment->user_id)
+                                    <p><a href='{{ url("/mypage") }}'>{{$comment->name}}</a> : {{$comment->comment}} <span>comment at {{$comment->updated_at}}</span></p>
+                                    @else
+                                    <p><a href='{{ url("/user/{$comment->user_id}") }}'>{{$comment->name}}</a> : {{$comment->comment}} <span>comment at {{$comment->updated_at}}</span></p>
+                                    @endif
                                     <br>
                                     @endforeach
                                     @else

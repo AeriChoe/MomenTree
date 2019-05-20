@@ -25,6 +25,8 @@ Route::get('/mypage', 'HomeController@mypage')->middleware('auth');
 Route::get('/follow/{id}', 'HomeController@follow')->middleware('auth');
 Route::get('/unfollowcheck', 'HomeController@uncheck')->middleware('auth');
 Route::get('/unfollow/{id}', 'HomeController@unfollow')->middleware('auth');
+Route::post('/contact/{id}', 'HomeController@sendMsg')->middleware('auth');
+Route::get('/dltMsg/{id}', 'HomeController@deleteMsg')->middleware('auth');
 
 Route::post('/search', 'PostController@search')->middleware('auth');
 Route::get('/post', 'PostController@post')->middleware('auth');

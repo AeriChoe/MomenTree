@@ -51,19 +51,31 @@
                                 <li>{{ $profile->name }}
                                     <button class="follow-btn">
                                         <a href='{{ url("/follow/{$profile->id}") }}'>Follow</a></button>
-                                    <a href=""><span class="fa fa-envelope-o" style="color:tomato; font-size:30px;"></span></a>
+                                    <span class="far fa-envelope" style="color:tomato; font-size:32px;" onclick="div_show3()"></span>
+
                                 </li>
                                 @else
                                 <li>{{ $profile->name }}
                                     <button class="follow-btn2">
                                         <a href='{{ url("/unfollow/{$profile->id}") }}'>Following</a></button>
-                                    <a href=""><span class="fa fa-envelope-o" style="color:tomato; font-size:30px;"></span></a>
+                                    <span class="far fa-envelope" style="color:tomato; font-size:32px;" onclick="div_show3()"></span>
                                 </li>
                                 @endif
                                 <ul class="user_info">
                                     <li><a href="#"><span class="spect">{{$post_count}}</span> post</a></li>
-                                    <li><a href="#"><span class="spect">{{$followct}}</span> follower</a></li>
-                                    <li><a href="#"><span class="spect">{{$followingct}}</span> following</a></li>
+                                    
+                                    @if(!empty($followct))
+                                    <li onclick="div_show2()"><span class="spect">{{$followct}}</span> follower</li>
+                                    @else
+                                    <li><span class="spect">{{$followct}}</span> follower</li>
+                                    @endif
+                                    
+                                    @if(!empty($followingct))
+                                    <li onclick="div_show()"><span class="spect">{{$followingct}}</span> following</li>
+                                    @else
+                                    <li><span class="spect">{{$followingct}}</span> following</li>
+                                    @endif
+                                    
                                 </ul>
                                 <li>{{ $profile->designation }}</li>
                             </ul>
@@ -89,4 +101,65 @@
         </div>
     </div>
 </div>
+
+<div id="abc">
+   <?php $userid = Auth::user()->id; ?>
+    <div id="popupContact">
+        <div id="closepopup" class="fas fa-times-circle" onclick="div_hide()"></div>
+        <h2 class="popup_ti">Following list</h2>
+        <ul class="followlist">
+           @foreach($followinguser as $fuser)
+           <?php $fl_user = $fuser->following_user_id ?>
+            @if($fl_user == $userid)
+            <li><a href='{{ url("/mypage") }}'><img src="{{$fuser->following_profile_pic}}" alt="user_profile_pic">
+                    <p>{{$fuser->following_name}}</p>
+                </a>
+            </li>
+            @else
+
+            <li><a href='{{ url("/user/{$fuser->following_user_id}") }}'><img src="{{$fuser->following_profile_pic}}" alt="user_profile_pic">
+                    <p>{{$fuser->following_name}}</p>
+                </a>
+            </li>
+            @endif
+            @endforeach
+        </ul>
+
+    </div>
+</div>
+<div id="abc2">
+    <div id="popupContact">
+        <div id="closepopup" class="fas fa-times-circle" onclick="div_hide2()"></div>
+        <h2 class="popup_ti">Follower list</h2>
+        <ul class="followlist">
+           @foreach($followeruser as $flwer)
+           <?php $flwer_user = $flwer->user_id ?>
+           @if($flwer_user == $userid)
+            <li><a href='{{ url("/mypage") }}'><img src="{{$flwer->profile_pic}}" alt="user_profile_pic">
+                    <p>{{$flwer->name}}</p>
+                </a>
+            </li>
+            @else
+            <li><a href='{{ url("/user/{$flwer->user_id}") }}'><img src="{{$flwer->profile_pic}}" alt="user_profile_pic">
+                    <p>{{$flwer->name}}</p>
+                </a>
+            </li>
+            @endif
+            @endforeach
+        </ul>
+
+    </div>
+</div>
+<div id="messageForm">
+        <div id="msgContact">
+            <div id="closeBtn" class="fas fa-times-circle" onclick="div_hide3()"></div>
+            <form method="POST" action='{{ url("/contact/{$profile->id}") }}' id="Mesform">
+               @csrf
+                <h2>Send Message to {{$profile->name}}</h2>
+                <textarea id="msg" name="message" placeholder="Write here"></textarea>
+                <input type="submit" class="submit" value="Send">
+            </form>
+
+        </div>
+    </div>
 @endsection

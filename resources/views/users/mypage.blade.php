@@ -53,11 +53,12 @@
                             <ul class="lead">
                                 <?php $uppro = Auth::user()->id; ?>
                                 @if(!empty($profile))
-                                <li>{{ $profile->name }} <a href='{{ url("/editPro/$uppro") }}'><span class="fa fa-pencil-square-o" style="color:firebrick; font-size:24px; margin-left:5px;"></span></a></li>
+                                <li>{{ $profile->name }} <a href='{{ url("/editPro/$uppro") }}'><span class="fas fa-edit" style="color:firebrick; font-size:24px; margin-left:5px;"></span></a>
+                                </li>
                                 <ul class="user_info">
                                     <li><a href=""><span class="spect">{{$post_count}}</span> post</a></li>
-                                    <li><a href=""><span class="spect">{{$followct}}</span> follower</a></li>
-                                    <li><a href=""><span class="spect">{{$followingct}}</span> following</a></li>
+                                    <li onclick="div_show2()"><span class="spect">{{$followct}}</span> follower</li>
+                                    <li onclick="div_show()"><span class="spect">{{$followingct}}</span> following</li>
                                 </ul>
                                 @else
                                 <p></p>
@@ -72,7 +73,7 @@
 
                             @if(!empty($profile))
                             <ul class="category">
-                                <p>{{ $profile->name }}'s Category <a href="{{ url('/category') }}"><span class="fa fa-pencil-square-o" style="color:firebrick; font-size:24px; margin-left:5px;"></span></a></p>
+                                <p>{{ $profile->name }}'s Category <a href="{{ url('/category') }}"><span class="fas fa-edit" style="color:firebrick; font-size:24px; margin-left:5px;"></span></a></p>
                                 @foreach($categories as $category)
                                 <a href="/category">
                                     <li>#{{$category->category}}</li>
@@ -86,52 +87,61 @@
                             @endif
                             @endif
                         </div>
-                        <div class="col-md-8-post">
+
+                        <hr class="hr">
+                        <div class="col-md-8-post user_post">
                             @if(count($posts) > 0)
                             @foreach($posts->all() as $post)
-                            <hr class="hr">
-                            <img src="{{$post->profile_pic}}" alt="#" class="postidimg">
-                            <ul class="nav nav-pills">
-                                <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <span style="color:darkorange; font-size: 22px;">{{$post->name}}</span></cite>
-                                <li role="presentation">
-                                    <a href='{{ url("/view/{$post->id}") }}'>
-                                        <span class="fa fa-eye"> View</span>
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a href='{{ url("/edit/{$post->id}") }}'>
-                                        <span class="fa fa-pencil-square-o"> Edit</span>
-                                    </a>
-                                </li>
-                                <li role="presentation">
-                                    <a href='{{ url("/delete/{$post->id}") }}'>
-                                        <span class="fa fa-trash"> Delete</span>
-                                    </a>
-                                </li>
 
-                            </ul>
-                        </div>
-                        <div class="col-md-8-post">
+                            <div class="user_post_one">
+                                <a href='{{ url("/edit/{$post->id}") }}'>
+                                    <span class="far fa-edit" style="margin-left:80%"></span>
+                                </a>
+                                <a href='{{ url("/delete/{$post->id}") }}'>
+                                    <span class="far fa-trash-alt" style="margin-left:8px"></span>
+                                </a>
+                                <a href='{{ url("/view/{$post->id}") }}'><img src="{{$post->post_image}}" alt="post_image"></a>
 
-                            <img src="{{$post->post_image}}" alt="image">
-                            <h3>Title: {{$post->post_title}}</h3>
-                            <p>{{substr($post->post_body, 0, 150)}}</p>
-
-
+                            </div>
                             @endforeach
-                            @else
-                            <span></span>
-                            @endif
-
-
-
                         </div>
-
-
+                        @else
+                        <span></span>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div id="abc">
+    <div id="popupContact">
+        <div id="closepopup" class="fas fa-times-circle" onclick="div_hide()"></div>
+        <h2 class="popup_ti">Following list</h2>
+        <ul class="followlist">
+            @foreach($followinguser as $fuser)
+            <li><a href='{{ url("/user/{$fuser->following_user_id}") }}'><img src="{{$fuser->following_profile_pic}}" alt="user_profile_pic">
+                    <p>{{$fuser->following_name}}</p>
+                </a>
+            </li>
+            @endforeach
+        </ul>
+
+    </div>
+</div>
+<div id="abc2">
+    <div id="popupContact">
+        <div id="closepopup" class="fas fa-times-circle" onclick="div_hide2()"></div>
+        <h2 class="popup_ti">Follower list</h2>
+        <ul class="followlist">
+            @foreach($followeruser as $flwer)
+            <li><a href='{{ url("/user/{$flwer->user_id}") }}'><img src="{{$flwer->profile_pic}}" alt="user_profile_pic">
+                    <p>{{$flwer->name}}</p>
+                </a>
+            </li>
+            @endforeach
+        </ul>
+
     </div>
 </div>
 @endsection

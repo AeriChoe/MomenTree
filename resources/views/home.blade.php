@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-md-8 mainHeader">
-                        <p class="fa fa-search"></p>
+                        <p class="fas fa-search"></p>
                         <form method="POST" action="{{ url('/search') }}" id="searchForm">
                             @csrf
                             <div class="input-group">
@@ -52,7 +52,7 @@
                             <ul class="lead">
                                <?php $uppro = Auth::user()->id; ?>
                                 @if(!empty($profile))
-                                <li>{{ $profile->name }} <a href='{{ url("/editPro/$uppro") }}'><span class="fa fa-pencil-square-o" style="color:firebrick; font-size:24px; margin-left:5px;"></span></a></li>
+                                <li>{{ $profile->name }} <a href='{{ url("/editPro/$uppro") }}'><span class="fas fa-edit" style="color:firebrick; font-size:24px; margin-left:5px;"></span></a></li>
                                 @else
                                 <p></p>
                                 @endif
@@ -66,7 +66,7 @@
 
                             @if(!empty($profile))
                             <ul class="category">
-                                <p>{{ $profile->name }}'s Category <a href="{{ url('/category') }}"><span class="fa fa-pencil-square-o" style="color:firebrick; font-size:24px; margin-left:5px;"></span></a></p>
+                                <p>{{ $profile->name }}'s Category <a href="{{ url('/category') }}"><span class="fas fa-edit" style="color:firebrick; font-size:24px; margin-left:5px;"></span></a></p>
                                 @foreach($categories as $category)
                                 <a href="/category">
                                     <li>#{{$category->category}}</li>
@@ -94,17 +94,17 @@
                                 <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <a href='{{ url("/mypage") }}' style="color:darkorange; font-size: 22px;">{{$post->name}}</a></cite>
                                 <li role="presentation">
                                     <a href='{{ url("/view/{$post->id}") }}'>
-                                        <span class="fa fa-eye"> View</span>
+                                        <span class="far fa-eye"> View</span>
                                     </a>
                                 </li>
                                 <li role="presentation">
                                     <a href='{{ url("/edit/{$post->id}") }}'>
-                                        <span class="fa fa-pencil-square-o"> Edit</span>
+                                        <span class="far fa-edit"> Edit</span>
                                     </a>
                                 </li>
                                 <li role="presentation">
                                     <a href='{{ url("/delete/{$post->id}") }}'>
-                                        <span class="fa fa-trash"> Delete</span>
+                                        <span class="far fa-trash-alt"> Delete</span>
                                     </a>
                                 </li>
 
@@ -116,7 +116,7 @@
                                 <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <a href='{{ url("/user/{$post->user_id}") }}' style="color:darkorange; font-size: 22px;">{{$post->name}}</a></cite>
                                 <li role="presentation">
                                     <a href='{{ url("/view/{$post->id}") }}'>
-                                        <span class="fa fa-heart"> View this Post</span>
+                                        <span class="fas fa-heart"> View this Post</span>
                                     </a>
                                 </li>
                             </ul>
@@ -145,6 +145,55 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div id="messageForm">
+    <div id="msgContact">
+        <div id="closeBtn" class="fas fa-times-circle" onclick="div_hide4()"></div>
+        <h2 class="popup_ti">Message ({{$msgct}})</h2>
+        <ul class="msglist">
+           @foreach($messageBox as $mb)
+           <?php $name = $mb->name; ?>
+            <li>
+                <p><i class="fas fa-envelope-open-text"></i> {{$name}} : {{substr($mb->message, 0, 21)}}..</p>
+            </li>
+            @endforeach
+            @if($msgct>1)
+            <button class="showbtn" onclick="openMsg()">OPEN ALL</button>
+            @else
+            <button class="showbtn" onclick="openMsg()">OPEN</button>
+            @endif
+        </ul>
+
+    </div>
+</div>
+<div id="messageForm2">
+    <div id="msgContact">
+       @foreach($messageBox as $mb)
+        <h2 class="popup_ti">From {{$mb->name}}</h2>
+        <ul class="msglist">
+            <li>
+                <p>{{$mb->message}}</p>
+            </li>
+            <li>
+                <button class="showbtn2" onclick="div_show6()">REPLY</button>
+                <button class="showbtn2" onclick="div_hide5()"><a href='{{ url("/dltMsg/{$mb->user_id}") }}'>CLOESE</a></button>
+            </li>
+        </ul>
+    @endforeach
+    </div>
+</div>
+<div id="messageForm3">
+    <div id="msgContact">
+        <div id="closeBtn" class="fas fa-times-circle" onclick="div_hide6()"></div>
+        @foreach($messageBox as $mb)
+        <form method="POST" action='{{ url("/contact/{$mb->user_id}") }}' id="Mesform">
+           @csrf
+            <h2>Send Message to {{$mb->name}}</h2>
+            <textarea id="msg" name="message" placeholder="Write here"></textarea>
+            <input type="submit" class="submit" value="Send">  
+        </form>
+        @endforeach
     </div>
 </div>
 @endsection

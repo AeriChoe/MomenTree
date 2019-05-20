@@ -10,9 +10,9 @@
                 <div class="card-body">
                    <ul class="social">
                    <p>Do you have Social Account?</p>
-                   <li class="gg"><a href="login/google" class="btn btn-block btn-social btn-google"><span class="fa fa-google"></span>Login with Google</a></li>
-                    <li class="fa"><a href="login/facebook" class="btn btn-block btn-social btn-facebook"><span class="fa fa-facebook"></span>Login with Facebook</a></li>
-                    <li class="git"><a href="login/github" class="btn btn-block btn-social btn-github"><span class="fa fa-github"></span>Login with Github</a></li>
+                   <li class="gg"><a href="login/google" class="btn btn-block btn-social btn-google"><span class="fab fa-google"></span>Login with Google</a></li>
+                    <li class="fa"><a href="login/facebook" class="btn btn-block btn-social btn-facebook"><span class="fab fa-facebook-f"></span>Login with Facebook</a></li>
+                    <li class="git"><a href="login/github" class="btn btn-block btn-social btn-github"><span class="fab fa-github"></span>Login with Github</a></li>
                     </ul>
                     <form method="POST" action="{{ route('login') }}" class="main-log">
                         @csrf

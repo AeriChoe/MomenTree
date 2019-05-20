@@ -67,9 +67,16 @@ class PostController extends Controller
         $user_id = Auth::user()->id;
         $posts = Post::where('id', '=', $post_id)->get();
         $postname = Post::select('name')->where('id', $post_id)->get();
+        $postcate = Post::select('category_id')->where('id', $post_id)->get();
+        foreach($postcate as $p) {
+            $caid = $p->category_id;
+        }
+        $showcate = Category::select('category')->where('id', $caid)->get();
+        
         $likePost = Post::find($post_id);
         $likeCtr = Like::where(['post_id' => $likePost->id])->count();
         $dislikeCtr = Dislike::where(['post_id' => $likePost->id])->count();
+        $commeCtr = Comment::where(['post_id' => $likePost->id])->count();
         //return $likeCtr;
         //exit();
         $categories = Category::select(array('id', 'category'))->where('user_id', $user_id)->get();
@@ -80,7 +87,7 @@ class PostController extends Controller
             ->where(['posts.id' => $post_id])
             ->get();
         
-        return view('posts.view', ['posts' => $posts, 'postname' => $postname, 'categories' => $categories, 'likeCtr' => $likeCtr, 'dislikeCtr' => $dislikeCtr, 'comments' => $comments]);
+        return view('posts.view', ['posts' => $posts, 'postname' => $postname, 'categories' => $categories, 'likeCtr' => $likeCtr, 'dislikeCtr' => $dislikeCtr, 'comments' => $comments, 'commeCtr' => $commeCtr, 'showcate' => $showcate, 'postcate' => $postcate]);
     }
     
     public function edit($post_id) {
@@ -188,6 +195,7 @@ class PostController extends Controller
         $comment->post_id = $post_id;
         $comment->comment = $request->input('comment');
         $comment->save();
+        
         return redirect("/view/{$post_id}")->with('response', 'Comment Add Successfully!');;
     }
     
@@ -197,6 +205,7 @@ class PostController extends Controller
         $keyword = $request->input('search');
         $posts = Post::where('post_title', 'LIKE', '%'.$keyword.'%')->get();
         $categories = Category::select('category')->where('user_id', $user_id)->get();
+        
         return view('posts.searchposts', ['profile'=>$profile, 'posts' => $posts, 'categories' => $categories, 'keyword' => $keyword]);
     }
 }

@@ -23,6 +23,7 @@
 
     <!-- FontsAwesome Icon -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     <!-- Styles -->
     <link href="{{ asset('css/style-main.css') }}" rel="stylesheet">
@@ -58,7 +59,7 @@
                         <li></li>
                         @else
                         @if(!empty($profile))
-                        <li><a class="nav-link" href="{{ url('/post') }}"> Post <span class="fa fa-plus-square-o"></span></a></li>
+                        <li><a class="nav-link" href="{{ url('/post') }}"> Post <span class="far fa-plus-square"></span></a></li>
                         @else
                         <li></li>
                         @endif
@@ -78,7 +79,12 @@
                         </li>
                         @endif
                         @else
-
+                        
+                        @if($msgct>0)
+                        <p onclick="div_show4()" style="cursor:pointer"><i class="far fa-envelope-open" style="color:darkorange; margin:10px 0 0 0; font-size:22px"></i></p>
+                        @else
+                        <p></p>
+                        @endif
                         <a class="nav-link" href="{{ url('/mypage') }}">{{ Auth::user()->name }}</a>
                         <a class="nav-link">|</a>
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -98,9 +104,50 @@
         </nav>
 
         <main class="py-4">
+           
             @yield('content')
+            
         </main>
     </div>
+<script>
+    function div_show() {
+        document.getElementById('abc').style.display = "block";
+    }
+    function div_hide() {
+        document.getElementById('abc').style.display = "none";
+    }
+    function div_show2() {
+        document.getElementById('abc2').style.display = "block";
+    }
+    function div_hide2() {
+        document.getElementById('abc2').style.display = "none";
+    }
+    function div_show3() {
+        document.getElementById('messageForm').style.display = "block";
+    }
+    function div_hide3() {
+        document.getElementById('messageForm').style.display = "none";
+    }
+    function div_show4() {
+        document.getElementById('messageForm').style.display = "block";
+    }
+    function div_hide4() {
+        document.getElementById('messageForm').style.display = "none";
+    }
+    function openMsg() {
+        document.getElementById('messageForm2').style.display = "block";
+        document.getElementById('messageForm').style.display = "none";
+    }
+    function div_hide5() {
+        document.getElementById('messageForm2').style.display = "none";
+    }
+    function div_show6() {
+        document.getElementById('messageForm3').style.display = "block";
+        document.getElementById('messageForm2').style.display = "none";
+    }
+    function div_hide6() {
+        document.getElementById('messageForm3').style.display = "none";
+    }
+</script>
 </body>
-
 </html>
