@@ -59,8 +59,8 @@ class HomeController extends Controller
         $followinguser = Follow::select(array('following_user_id','following_name', 'following_profile_pic'))->where('user_id', $user_id)->get();
         $followeruser = Follow::select(array('user_id','name', 'profile_pic'))->where('following_user_id', $user_id)->get();
         $messageBox = Contact::select(array('user_id', 'name', 'message'))->where('to_user_id', $user_id)->get();
-        $msgct = Contact::where('to_user_id', $user_id)->count(); 
         
+        $msgct = Contact::where('to_user_id', $user_id)->count();
         $post_count = Post::where('user_id', $user_id)->count();
         $followct = Follow::where('following_user_id', $user_id)->count();
         $followingct = Follow::where('user_id', $user_id)->count();
@@ -147,5 +147,30 @@ class HomeController extends Controller
         Contact::where('to_user_id', $user_id)->delete();
         
         return redirect("home");
+    }
+    
+    public function replyMsg(Request $request, $userid) {
+        $user_id = Auth::user()->id;
+        $myprofile = Profile::where('user_id', $user_id)->get();
+        foreach ($myprofile as $mp) {
+            $name = $mp->name;
+        }
+        $userprofile = Profile::where('user_id', $userid)->get();
+        foreach ($userprofile as $up) {
+            $username = $up->name;
+        }
+        $this->validate($request, [
+            'message' => 'required'
+        ]);
+        $cotact = new Contact;
+        $cotact->user_id = $user_id;
+        $cotact->name = $name;
+        $cotact->message = $request->input('message');
+        $cotact->to_user_id = $userid;
+        $cotact->to_name = $username;
+        $cotact->save();
+        Contact::where('to_user_id', $user_id)->delete();
+            
+        return redirect("home")->with('response', 'Success to send a message!');
     }
 }

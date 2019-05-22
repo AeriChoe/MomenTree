@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Post;
+use App\Contact;
 use App\Comment;
 use App\Like;
 use App\Dislike;
@@ -21,7 +22,9 @@ class PostController extends Controller
     public function post() {
         $user_id = Auth::user()->id;
         $categories = Category::select(array('id', 'category'))->where('user_id', $user_id)->get();
-        return view('posts.post', ['categories' => $categories]);
+        $msgct = Contact::where('to_user_id', $user_id)->count(); 
+        
+        return view('posts.post', ['categories' => $categories, 'msgct' => $msgct]);
     }
     
     public function nocate() {
@@ -59,6 +62,8 @@ class PostController extends Controller
         }
         $posts->post_image = $url;
         $posts->save();
+        $msgct = Contact::where('to_user_id', $user_id)->count(); 
+        
         return redirect('/home')->with('response', 'Post Published Successfully!');
     }
 
@@ -72,7 +77,7 @@ class PostController extends Controller
             $caid = $p->category_id;
         }
         $showcate = Category::select('category')->where('id', $caid)->get();
-        
+        $msgct = Contact::where('to_user_id', $user_id)->count(); 
         $likePost = Post::find($post_id);
         $likeCtr = Like::where(['post_id' => $likePost->id])->count();
         $dislikeCtr = Dislike::where(['post_id' => $likePost->id])->count();
@@ -87,14 +92,17 @@ class PostController extends Controller
             ->where(['posts.id' => $post_id])
             ->get();
         
-        return view('posts.view', ['posts' => $posts, 'postname' => $postname, 'categories' => $categories, 'likeCtr' => $likeCtr, 'dislikeCtr' => $dislikeCtr, 'comments' => $comments, 'commeCtr' => $commeCtr, 'showcate' => $showcate, 'postcate' => $postcate]);
+        return view('posts.view', ['posts' => $posts, 'postname' => $postname, 'categories' => $categories, 'likeCtr' => $likeCtr, 'dislikeCtr' => $dislikeCtr, 'comments' => $comments, 'commeCtr' => $commeCtr, 'showcate' => $showcate, 'postcate' => $postcate, 'msgct' => $msgct]);
     }
     
     public function edit($post_id) {
+        $user_id = Auth::user()->id;
         $categories = Category::all();
         $posts = Post::find($post_id);
         $category = Category::find($posts->category_id);
-        return view('posts.edit', ['categories' => $categories, 'posts' => $posts, 'category' => $category]);
+        $msgct = Contact::where('to_user_id', $user_id)->count(); 
+        
+        return view('posts.edit', ['categories' => $categories, 'posts' => $posts, 'category' => $category, 'msgct' => $msgct]);
         
     }
 
@@ -162,6 +170,7 @@ class PostController extends Controller
             $like->email = $email;
             $like->post_id = $post_id;
             $like->save();
+            
             return redirect("/view/{$id}");
         } else {
             return redirect("/view/{$id}");
@@ -180,6 +189,7 @@ class PostController extends Controller
             $like->email = $email;
             $like->post_id = $post_id;
             $like->save();
+            
             return redirect("/view/{$id}");
         } else {
             return redirect("/view/{$id}");
@@ -205,8 +215,9 @@ class PostController extends Controller
         $keyword = $request->input('search');
         $posts = Post::where('post_title', 'LIKE', '%'.$keyword.'%')->get();
         $categories = Category::select('category')->where('user_id', $user_id)->get();
+        $msgct = Contact::where('to_user_id', $user_id)->count(); 
         
-        return view('posts.searchposts', ['profile'=>$profile, 'posts' => $posts, 'categories' => $categories, 'keyword' => $keyword]);
+        return view('posts.searchposts', ['profile'=>$profile, 'posts' => $posts, 'categories' => $categories, 'keyword' => $keyword, 'msgct' => $msgct]);
     }
 }
 

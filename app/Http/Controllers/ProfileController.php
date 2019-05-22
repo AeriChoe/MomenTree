@@ -6,6 +6,7 @@ use Auth;
 use Auth\Register;
 use App\User;
 use App\Profile;
+use App\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
@@ -14,7 +15,10 @@ use Illuminate\Support\Facades\URL;
 class ProfileController extends Controller
 {
   public function profile() {
-    return view('profiles.profile');
+      $user_id = Auth::user()->id;
+      $msgct = Contact::where('to_user_id', $user_id)->count(); 
+
+      return view('profiles.profile', ['msgct' => $msgct]);
   }
     
     public function addProfile(Request $request) {
@@ -34,9 +38,10 @@ class ProfileController extends Controller
             //return $url;
             //exit() <- for check
         }
-        
+         
         $profile->profile_pic = $url;
         $profile->save();
+        
         return redirect('/home')->with('response', 'Profile Added Successfully!');
         
         
@@ -45,8 +50,11 @@ class ProfileController extends Controller
     }
     
     public function editPro($profile_id) {
+        $user_id = Auth::user()->id;
         $profile = Profile::find($profile_id);
-        return view('profiles.editPro', ['profile' => $profile]);
+        $msgct = Contact::where('to_user_id', $user_id)->count(); 
+        
+        return view('profiles.editPro', ['profile' => $profile, 'msgct' => $msgct]);
         
     }
     
@@ -78,6 +86,7 @@ class ProfileController extends Controller
         Profile::where('id', $profile_id)
             ->update($data);
         $profile->update();
+        
         return redirect('/home')->with('response', 'Profile Update Successfully!');
         
     }

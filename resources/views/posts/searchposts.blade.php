@@ -63,12 +63,21 @@
                             @else
                             <img src="{{$post->profile_pic}}" alt="#" class="postidimg">
                             <ul class="nav nav-pills">
+                               @if(!empty($profile))
                                 <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <a href='{{ url("/user/{$post->user_id}") }}' style="color:darkorange; font-size: 22px;">{{$post->name}}</a></cite>
                                 <li role="presentation">
                                     <a href='{{ url("/view/{$post->id}") }}'>
                                         <span class="fa fa-heart"> View this Post</span>
                                     </a>
                                 </li>
+                                @else
+                                <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <a href='{{ url("/nocate") }}' style="color:darkorange; font-size: 22px;">{{$post->name}}</a></cite>
+                                <li role="presentation">
+                                    <a href='{{ url("/nocate") }}'>
+                                        <span class="fa fa-heart"> View this Post</span>
+                                    </a>
+                                </li>
+                                @endif
                             </ul>
 
                             @endif

@@ -498,6 +498,7 @@ p.csheader {
 }
 
 #messageForm,
+#messageFormx,
 #messageForm2,
 #messageForm3 {
     width: 100%;
@@ -513,12 +514,25 @@ p.csheader {
 #closeBtn {
     position: absolute;
     color: white;
-    right: -15px;
+    right: -16px;
     top: -10px;
     cursor: pointer;
     font-size: 24px;
 }
-
+#closeBtn2 {
+    background: none;
+    position: absolute;
+    color: white;
+    text-decoration: none;
+    right: -16px;
+    top: -10px;
+    cursor: pointer;
+    border: 0;
+    font-size: 24px;
+}
+#closeBtn2:hover {
+    text-decoration: none;
+}
 #msgContact {
     position: absolute;
     left: 50%;

@@ -88,11 +88,10 @@
                             @endif
                         </div>
 
-                        <hr class="hr">
                         <div class="col-md-8-post user_post">
                             @if(count($posts) > 0)
+                            <hr class="hr">
                             @foreach($posts->all() as $post)
-
                             <div class="user_post_one">
                                 <a href='{{ url("/edit/{$post->id}") }}'>
                                     <span class="far fa-edit" style="margin-left:80%"></span>
@@ -142,6 +141,67 @@
             @endforeach
         </ul>
 
+    </div>
+</div>
+<div id="messageForm">
+    <div id="msgContact">
+        <div id="closeBtn" class="fas fa-times-circle" onclick="div_hide4()"></div>
+        <h2 class="popup_ti">Message ({{$msgct}})</h2>
+        <ul class="msglist">
+           @foreach($messageBox as $mb)
+           <?php $name = $mb->name; ?>
+            <li>
+                <p><i class="fas fa-envelope-open-text"></i> {{$name}} : {{substr($mb->message, 0, 21)}}..</p>
+            </li>
+            @endforeach
+            @if($msgct>1)
+            <button class="showbtn" onclick="openMsg()">OPEN ALL</button>
+            @else
+            <button class="showbtn" onclick="openMsg()">OPEN</button>
+            @endif
+        </ul>
+
+    </div>
+</div>
+<div id="messageForm2">
+    <div id="msgContact">
+    @if($msgct>1)
+    @foreach($messageBox as $mb)
+    <a href='{{ url("/dltMsg/{$mb->user_id}") }}' class="fas fa-times-circle" id="closeBtn2"></a>
+        <h2 class="popup_ti">From {{$mb->name}}</h2>
+        <ul class="msglist">
+            <li>
+                <p>{{$mb->message}}</p>
+            </li>
+        </ul>
+    @endforeach
+    @else
+    @foreach($messageBox as $mb)
+        <h2 class="popup_ti">From {{$mb->name}}</h2>
+        <ul class="msglist">
+            <li>
+                <p>{{$mb->message}}</p>
+            </li>
+            <li>
+                <button class="showbtn2" onclick="div_show6()">REPLY</button>
+                <a href='{{ url("/dltMsg/{$mb->user_id}") }}' class="showbtn2">CLOESE</a>
+            </li>
+        </ul>
+    @endforeach
+    @endif
+    </div>
+</div>
+<div id="messageForm3">
+    <div id="msgContact">
+       @foreach($messageBox as $mb)
+        <a href='{{ url("/dltMsg/{$mb->user_id}") }}' class="fas fa-times-circle" id="closeBtn2"></a>
+        <form method="POST" action='{{ url("/reply/{$mb->user_id}") }}' id="Mesform">
+           @csrf
+            <h2>Send Message to {{$mb->name}}</h2>
+            <textarea id="msg" name="message" placeholder="Write here"></textarea>
+            <input type="submit" class="submit" value="Send">  
+        </form>
+        @endforeach
     </div>
 </div>
 @endsection

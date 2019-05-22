@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Contact;
 use Auth;
 
 class CategoryController extends Controller
@@ -11,8 +12,9 @@ class CategoryController extends Controller
     public function category() {
         $user_id = Auth::user()->id;
         $categories = Category::select(array('id', 'category'))->where('user_id', $user_id)->get();
+        $msgct = Contact::where('to_user_id', $user_id)->count(); 
         
-        return view('categories.category', ['categories' => $categories]);
+        return view('categories.category', ['categories' => $categories, 'msgct' => $msgct]);
       }
 
     public function addCategory(Request $request) {

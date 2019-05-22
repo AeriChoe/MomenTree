@@ -60,6 +60,7 @@
                                 @if(!empty($profile))
                                 <li style="margin-top:10px;">{{ $profile->designation }}</li>
                                 @else
+                                <br>
                                 <a href="{{ url('/profile') }}">Add My Profile</a>
                                 @endif
                             </ul>
@@ -113,13 +114,25 @@
                             <a href='{{ url("/user/{$post->user_id}") }}'>
                                 <img src="{{$post->profile_pic}}" alt="profile_img" class="postidimg"></a>
                             <ul class="nav nav-pills">
+                                @if(!empty($profile))
                                 <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <a href='{{ url("/user/{$post->user_id}") }}' style="color:darkorange; font-size: 22px;">{{$post->name}}</a></cite>
+        
                                 <li role="presentation">
                                     <a href='{{ url("/view/{$post->id}") }}'>
                                         <span class="fas fa-heart"> View this Post</span>
                                     </a>
                                 </li>
+                                @else
+                                <cite>{{date('M j, Y H:i', strtotime($post->updated_at))}} by <a href='{{ url("/nocate") }}' style="color:darkorange; font-size: 22px;">{{$post->name}}</a></cite>
+        
+                                <li role="presentation">
+                                    <a href='{{ url("/nocate") }}'>
+                                        <span class="fas fa-heart"> View this Post</span>
+                                    </a>
+                                </li>
+                                @endif
                             </ul>
+                            
 
                             @endif
                         </div>
@@ -169,7 +182,18 @@
 </div>
 <div id="messageForm2">
     <div id="msgContact">
-       @foreach($messageBox as $mb)
+    @if($msgct>1)
+    @foreach($messageBox as $mb)
+    <a href='{{ url("/dltMsg/{$mb->user_id}") }}' class="fas fa-times-circle" id="closeBtn2"></a>
+        <h2 class="popup_ti">From {{$mb->name}}</h2>
+        <ul class="msglist">
+            <li>
+                <p>{{$mb->message}}</p>
+            </li>
+        </ul>
+    @endforeach
+    @else
+    @foreach($messageBox as $mb)
         <h2 class="popup_ti">From {{$mb->name}}</h2>
         <ul class="msglist">
             <li>
@@ -181,13 +205,14 @@
             </li>
         </ul>
     @endforeach
+    @endif
     </div>
 </div>
 <div id="messageForm3">
     <div id="msgContact">
-        <div id="closeBtn" class="fas fa-times-circle" onclick="div_hide6()"></div>
-        @foreach($messageBox as $mb)
-        <form method="POST" action='{{ url("/contact/{$mb->user_id}") }}' id="Mesform">
+       @foreach($messageBox as $mb)
+        <a href='{{ url("/dltMsg/{$mb->user_id}") }}' class="fas fa-times-circle" id="closeBtn2"></a>
+        <form method="POST" action='{{ url("/reply/{$mb->user_id}") }}' id="Mesform">
            @csrf
             <h2>Send Message to {{$mb->name}}</h2>
             <textarea id="msg" name="message" placeholder="Write here"></textarea>
