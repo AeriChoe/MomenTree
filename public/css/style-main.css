@@ -356,9 +356,9 @@ button.commentbtn:hover {
 }
 
 #formShow .commentsql p span {
-    font-size: 16px;
-    color: lightyellow;
-    margin-left: 44%;
+    font-size: 13px;
+    margin: 0 3px 0 3px;
+    color: gray;
 }
 
 #formShow .commentsql p:first-child {

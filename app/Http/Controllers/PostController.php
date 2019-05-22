@@ -91,8 +91,9 @@ class PostController extends Controller
             ->select('users.name', 'comments.*')
             ->where(['posts.id' => $post_id])
             ->get();
-        
-        return view('posts.view', ['posts' => $posts, 'postname' => $postname, 'categories' => $categories, 'likeCtr' => $likeCtr, 'dislikeCtr' => $dislikeCtr, 'comments' => $comments, 'commeCtr' => $commeCtr, 'showcate' => $showcate, 'postcate' => $postcate, 'msgct' => $msgct]);
+        $myp = Profile::where('user_id', $user_id)->get();
+
+        return view('posts.view', ['posts' => $posts, 'postname' => $postname, 'categories' => $categories, 'likeCtr' => $likeCtr, 'dislikeCtr' => $dislikeCtr, 'comments' => $comments, 'commeCtr' => $commeCtr, 'showcate' => $showcate, 'postcate' => $postcate, 'msgct' => $msgct, 'myp' => $myp]);
     }
     
     public function edit($post_id) {
@@ -208,6 +209,8 @@ class PostController extends Controller
         
         return redirect("/view/{$post_id}")->with('response', 'Comment Add Successfully!');;
     }
+    
+    
     
     public function search(Request $request) {
         $user_id = Auth::user()->id;

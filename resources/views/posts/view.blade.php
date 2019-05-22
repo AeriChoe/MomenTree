@@ -96,9 +96,15 @@
                                     <p>Comments</p>
                                     @foreach($comments->all() as $comment)
                                     @if(Auth::user()->id == $comment->user_id)
-                                    <p><a href='{{ url("/mypage") }}'>{{$comment->name}}</a> : {{$comment->comment}} <span>comment at {{$comment->updated_at}}</span></p>
+                                    <p><a href='{{ url("/mypage") }}'>
+                                    @foreach($myp as $mp)
+                                    {{$mp->name}}</a><span>&#40;{{date('M j', strtotime($comment->updated_at))}}&#41;</span> : {{$comment->comment}} <span></span></p>
+                                    @endforeach
                                     @else
-                                    <p><a href='{{ url("/user/{$comment->user_id}") }}'>{{$comment->name}}</a> : {{$comment->comment}} <span>comment at {{$comment->updated_at}}</span></p>
+                                    <p><a href='{{ url("/user/{$comment->user_id}") }}'>
+                                    @foreach($myp as $mp)
+                                    {{$mp->name}}</a><span>&#40;{{date('M j', strtotime($comment->updated_at))}}&#41;</span> : {{$comment->comment}} </p>
+                                    @endforeach
                                     @endif
                                     <br>
                                     @endforeach

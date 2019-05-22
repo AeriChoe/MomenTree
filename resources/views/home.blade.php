@@ -140,8 +140,11 @@
                             
                             <img src="{{$post->post_image}}" alt="post_image">
                             <h3>Title: {{$post->post_title}}</h3>
-                            <p>{{substr($post->post_body, 0, 150)}}..</p>
-
+                            @if(strlen($post->post_body)>150)
+                            <p>{{substr($post->post_body, 0, 150)}}...</p>
+                            @else 
+                            <p>{{substr($post->post_body, 0, 150)}}</p>
+                            @endif
                             <hr class="fakehr">
                             <hr class="fakehr">
                             @endforeach
