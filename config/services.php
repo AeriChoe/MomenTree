@@ -61,5 +61,10 @@ return [
         'client_secret' => 'kijRwIz6pmq9sO01k5W_SBcG',
         'redirect' => 'https://momentreeglobal.herokuapp.com/login/google/callback',
     ],
-
+    
+    //'github' => [
+    //'client_id' => env('GITHUB_ID'),
+    //'client_secret' => env('GITHUB_SECRET'),
+    //'redirect' => env('GITHUB_CALLBACK'),
+//],
 ];
